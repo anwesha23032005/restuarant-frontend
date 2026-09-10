@@ -1,47 +1,50 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MOCK_ITEMS = [
   {
-    _id: '1',
-    Name: 'Margherita Pizza',
-    Description: 'Classic delight with 100% real mozzarella cheese.',
+    _id: "1",
+    Name: "Margherita Pizza",
+    Description: "Classic delight with 100% real mozzarella cheese.",
     Price: 12.99,
-    Category: 'Pizza',
-    Image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500',
+    Category: "Pizza",
+    Image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500",
   },
   {
-    _id: '2',
-    Name: 'Gourmet Cheese Burger',
-    Description: 'Juicy beef patty topped with cheddar cheese and fresh lettuce.',
+    _id: "2",
+    Name: "Gourmet Cheese Burger",
+    Description:
+      "Juicy beef patty topped with cheddar cheese and fresh lettuce.",
     Price: 9.99,
-    Category: 'Burgers',
-    Image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500',
+    Category: "Burgers",
+    Image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500",
   },
   {
-    _id: '3',
-    Name: 'Creamy Pasta Alfredo',
-    Description: 'Penne pasta tossed in rich parmesan cream sauce.',
+    _id: "3",
+    Name: "Creamy Pasta Alfredo",
+    Description: "Penne pasta tossed in rich parmesan cream sauce.",
     Price: 11.49,
-    Category: 'Pasta',
-    Image: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281288?w=500',
+    Category: "Pasta",
+    Image: "https://images.unsplash.com/photo-1621996346565-e3d5d6281288?w=500",
   },
 ];
 
 const Home = () => {
   const [menuItems, setMenuItems] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/menu-items');
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+        const response = await axios.get(`${API_BASE_URL}/api/menu-items`);
         setMenuItems(response.data);
       } catch {
         // Fallback to mock items so the UI renders during frontend design
-        console.warn('Backend server not reachable. Displaying mock data.');
+        console.warn("Backend server not reachable. Displaying mock data.");
         setMenuItems(MOCK_ITEMS);
       } finally {
         setLoading(false);
@@ -52,23 +55,32 @@ const Home = () => {
   }, []);
 
   // Filter items based on name, description, or category matching the search input
-  const filteredItems = menuItems.filter((item) =>
-    item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.Category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.Description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredItems = menuItems.filter(
+    (item) =>
+      item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.Category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.Description.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   if (loading) {
-    return <div className="text-center py-10 font-medium text-amber-600">Loading delicious items...</div>;
+    return (
+      <div className="text-center py-10 font-medium text-amber-600">
+        Loading delicious items...
+      </div>
+    );
   }
 
   return (
     <div className="space-y-8 pb-12">
       {/* Hero Banner */}
       <div className="bg-amber-100 rounded-2xl p-8 text-center border border-amber-200">
-        <h1 className="text-4xl font-extrabold text-amber-900 mb-2">Welcome to TastyBites</h1>
-        <p className="text-amber-700 text-lg">Order fresh, delicious meals directly from our kitchen.</p>
-        
+        <h1 className="text-4xl font-extrabold text-amber-900 mb-2">
+          Welcome to TastyBites
+        </h1>
+        <p className="text-amber-700 text-lg">
+          Order fresh, delicious meals directly from our kitchen.
+        </p>
+
         {/* Search Input Bar */}
         <div className="mt-6 max-w-md mx-auto">
           <input
@@ -89,18 +101,31 @@ const Home = () => {
           </div>
         ) : (
           filteredItems.map((item) => (
-            <div key={item._id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-              <img src={item.Image} alt={item.Name} className="w-full h-48 object-cover" />
+            <div
+              key={item._id}
+              className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition"
+            >
+              <img
+                src={item.Image}
+                alt={item.Name}
+                className="w-full h-48 object-cover"
+              />
               <div className="p-5 flex flex-col justify-between h-52">
                 <div>
                   <span className="text-xs font-semibold px-2 py-1 bg-amber-50 text-amber-700 rounded-md">
                     {item.Category}
                   </span>
-                  <h3 className="text-xl font-bold text-gray-800 mt-2">{item.Name}</h3>
-                  <p className="text-gray-600 text-sm mt-1 line-clamp-2">{item.Description}</p>
+                  <h3 className="text-xl font-bold text-gray-800 mt-2">
+                    {item.Name}
+                  </h3>
+                  <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+                    {item.Description}
+                  </p>
                 </div>
                 <div className="flex justify-between items-center mt-4">
-                  <span className="text-xl font-bold text-amber-600">${item.Price.toFixed(2)}</span>
+                  <span className="text-xl font-bold text-amber-600">
+                    ${item.Price.toFixed(2)}
+                  </span>
                   <Link
                     to={`/menu/${item._id}`}
                     className="bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-amber-700 transition"
