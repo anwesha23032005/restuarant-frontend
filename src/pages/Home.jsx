@@ -76,8 +76,8 @@ const Home = () => {
   return (
     <div className="space-y-8 pb-12">
       {/* Hero Banner */}
-      <div className="glass-panel p-8 sm:p-12 text-center animate-fade-in-up relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-orange-600/5 pointer-events-none" />
+      <div className="bg-cover bg-center bg-no-repeat p-8 sm:p-12 text-center animate-fade-in-up relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl" style={{ backgroundImage: "url('https://t3.ftcdn.net/jpg/01/54/14/86/360_F_154148685_yvijeC6L2SFpvqFJ5H1lunPg40FzCAf1.jpg')" }}>
+        <div className="absolute inset-0 bg-slate-950/70 pointer-events-none" />
         <div className="relative z-10">
           <h1 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500 bg-clip-text text-transparent mb-3">
             Welcome to TastyBites
