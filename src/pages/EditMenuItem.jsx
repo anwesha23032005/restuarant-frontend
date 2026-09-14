@@ -92,8 +92,9 @@ const EditMenuItem = () => {
 
   if (fetching) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-amber-600 font-semibold text-lg">
+      <div className="flex flex-col items-center justify-center h-64 gap-4">
+        <div className="w-12 h-12 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
+        <div className="text-amber-400 font-semibold text-sm">
           Loading Item Details...
         </div>
       </div>
@@ -101,31 +102,31 @@ const EditMenuItem = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto py-6">
+    <div className="max-w-2xl mx-auto py-6 animate-fade-in-up">
       <div className="mb-6">
         <Link
           to="/admin/menu-items"
-          className="text-amber-600 hover:underline font-medium text-sm"
+          className="text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors"
         >
           &larr; Back to Menu Items
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900 mt-2">
+        <h1 className="text-2xl font-bold text-slate-100 mt-2">
           Edit Menu Item
         </h1>
       </div>
 
       {error && (
-        <div className="bg-amber-50 text-amber-700 border border-amber-200 p-3 rounded-md mb-6 text-sm">
+        <div className="bg-amber-500/10 text-amber-300 border border-amber-500/20 p-3 rounded-lg mb-6 text-sm backdrop-blur-md">
           {error}
         </div>
       )}
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 space-y-4"
+        className="glass-panel p-6 space-y-5"
       >
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-300 mb-2">
             Item Name
           </label>
           <input
@@ -134,12 +135,12 @@ const EditMenuItem = () => {
             required
             value={formData.Name}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="glass-input w-full px-4 py-2.5"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-300 mb-2">
             Description
           </label>
           <textarea
@@ -148,30 +149,30 @@ const EditMenuItem = () => {
             required
             value={formData.Description}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="glass-input w-full px-4 py-2.5 resize-none"
           />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-300 mb-2">
               Category
             </label>
             <select
               name="Category"
               value={formData.Category}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="glass-input-select w-full px-4 py-2.5"
             >
-              <option value="Main Course">Main Course</option>
-              <option value="Starter">Starter</option>
-              <option value="Dessert">Dessert</option>
-              <option value="Beverages">Beverages</option>
+              <option value="Main Course" className="bg-slate-800">Main Course</option>
+              <option value="Starter" className="bg-slate-800">Starter</option>
+              <option value="Dessert" className="bg-slate-800">Dessert</option>
+              <option value="Beverages" className="bg-slate-800">Beverages</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-300 mb-2">
               Price ($)
             </label>
             <input
@@ -181,13 +182,13 @@ const EditMenuItem = () => {
               required
               value={formData.Price}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="glass-input w-full px-4 py-2.5"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-300 mb-2">
             Image URL
           </label>
           <input
@@ -196,11 +197,11 @@ const EditMenuItem = () => {
             required
             value={formData.Image}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="glass-input w-full px-4 py-2.5"
           />
         </div>
 
-        <div className="flex items-center gap-2 pt-2">
+        <div className="flex items-center gap-3 pt-2">
           <input
             type="checkbox"
             id="IsAvailable"
@@ -209,11 +210,11 @@ const EditMenuItem = () => {
             onChange={(e) =>
               setFormData({ ...formData, IsAvailable: e.target.checked })
             }
-            className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
+            className="h-4 w-4 rounded border-white/20 bg-slate-800/50 text-amber-500 focus:ring-amber-500/50 focus:ring-offset-0"
           />
           <label
             htmlFor="IsAvailable"
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-slate-300"
           >
             Available for ordering
           </label>
@@ -222,14 +223,14 @@ const EditMenuItem = () => {
         <div className="pt-4 flex justify-end gap-3">
           <Link
             to="/admin/menu-items"
-            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="btn-secondary px-5 py-2.5 text-sm"
           >
             Cancel
           </Link>
           <button
             type="submit"
             disabled={loading}
-            className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-md text-sm font-medium transition duration-150 disabled:opacity-50"
+            className="btn-primary px-5 py-2.5 text-sm disabled:opacity-50"
           >
             {loading ? "Updating..." : "Update Item"}
           </button>

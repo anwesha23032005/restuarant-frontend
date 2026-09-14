@@ -8,7 +8,10 @@ const ProtectedRoute = ({ adminOnly = false }) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[50vh]">
-        <div className="text-gray-600 font-medium">Loading...</div>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
+          <div className="text-slate-400 font-medium text-sm">Loading...</div>
+        </div>
       </div>
     );
   }

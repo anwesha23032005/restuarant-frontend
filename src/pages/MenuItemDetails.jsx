@@ -47,8 +47,9 @@ const MenuItemDetails = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-amber-600 font-semibold text-lg">
+      <div className="flex flex-col items-center justify-center h-64 gap-4">
+        <div className="w-12 h-12 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
+        <div className="text-amber-400 font-medium text-sm">
           Loading item details...
         </div>
       </div>
@@ -58,12 +59,12 @@ const MenuItemDetails = () => {
   if (!item) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-800">
+        <h2 className="text-2xl font-bold text-slate-100">
           Menu item not found
         </h2>
         <Link
           to="/"
-          className="text-amber-600 font-medium hover:underline mt-4 inline-block"
+          className="text-amber-400 font-medium hover:text-amber-300 mt-4 inline-block transition-colors"
         >
           &larr; Back to Menu
         </Link>
@@ -72,71 +73,70 @@ const MenuItemDetails = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
+    <div className="max-w-4xl mx-auto py-8 px-4 animate-fade-in-up">
       <Link
         to="/"
-        className="text-amber-600 font-medium hover:underline text-sm inline-block mb-6"
+        className="text-amber-400 font-medium hover:text-amber-300 text-sm inline-block mb-6 transition-colors"
       >
         &larr; Back to Full Menu
       </Link>
 
       {error && (
-        <div className="bg-amber-50 text-amber-700 border border-amber-200 p-3 rounded-md mb-6 text-sm">
+        <div className="bg-amber-500/10 text-amber-300 border border-amber-500/20 p-3 rounded-lg mb-6 text-sm backdrop-blur-md">
           {error}
         </div>
       )}
 
-      <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden grid grid-cols-1 md:grid-cols-2">
-        <div className="h-72 md:h-full w-full">
+      <div className="glass-panel overflow-hidden grid grid-cols-1 md:grid-cols-2">
+        <div className="h-72 md:h-full w-full relative overflow-hidden">
           <img
             src={item.Image}
             alt={item.Name}
             className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent md:bg-gradient-to-r" />
         </div>
 
         <div className="p-8 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full">
+              <span className="badge-amber">
                 {item.Category}
               </span>
               <span
-                className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                  item.IsAvailable
-                    ? "bg-green-100 text-green-800"
-                    : "bg-red-100 text-red-800"
-                }`}
+                className={
+                  item.IsAvailable ? "badge-green" : "badge-red"
+                }
               >
                 {item.IsAvailable ? "Available" : "Currently Unavailable"}
               </span>
             </div>
 
-            <h1 className="text-3xl font-extrabold text-gray-900 mt-3">
+            <h1 className="text-3xl font-extrabold text-slate-100 mt-3">
               {item.Name}
             </h1>
-            <p className="text-2xl font-bold text-amber-600 mt-2">
+            <p className="text-2xl font-bold text-amber-400 mt-2 text-glow-amber">
               ${item.Price?.toFixed(2)}
             </p>
 
-            <p className="text-gray-600 mt-4 leading-relaxed">
+            <p className="text-slate-400 mt-4 leading-relaxed text-sm">
               {item.Description}
             </p>
           </div>
 
           {/* Conditionally render the order section only if the user is NOT an admin */}
           {!isAdmin ? (
-            <div className="mt-8 pt-6 border-t border-gray-100">
+            <div className="mt-8 pt-6 border-t border-white/10">
               <button
                 disabled={!item.IsAvailable}
-                className="w-full py-3 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-700 transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary w-full py-3 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:scale-100"
               >
                 {item.IsAvailable ? "Order Now" : "Item Unavailable"}
               </button>
             </div>
           ) : (
-            <div className="mt-8 pt-6 border-t border-gray-100">
-              <p className="text-xs text-gray-400 text-center italic">
+            <div className="mt-8 pt-6 border-t border-white/10">
+              <p className="text-xs text-slate-500 text-center italic">
                 Admin view mode: Ordering is disabled for administrator
                 accounts.
               </p>
