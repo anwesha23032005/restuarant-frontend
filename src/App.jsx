@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthProvider';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import AdminLayout from './components/AdminLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -10,8 +9,6 @@ import Home from './pages/Home';
 import MenuItemDetails from './pages/MenuItemDetails';
 import UserLogin from './pages/UserLogin';
 import UserRegister from './pages/UserRegister';
-import Wishlist from './pages/Wishlist';
-import AccountSettings from './pages/AccountSettings';
 
 // Admin Pages
 import AdminDashboard from './pages/AdminDashboard';
@@ -35,16 +32,12 @@ function App() {
           <div className="relative z-10 flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-grow container mx-auto px-4 py-6">
-              <div className="flex flex-col min-h-[calc(100vh-4rem)]">
               <Routes>
                 {/* Public & Customer Routes */}
                 <Route path="/" element={<Home />} />
                 <Route path="/menu/:id" element={<MenuItemDetails />} />
                 <Route path="/login" element={<UserLogin />} />
                 <Route path="/register" element={<UserRegister />} />
-                <Route path="/wishlist" element={<Wishlist />} />
-                <Route path="/cart" element={<Navigate to="/wishlist" replace />} />
-                <Route path="/account" element={<AccountSettings />} />
 
                 {/* Protected Admin Routes with Layout Wrapper & Outlet */}
                 <Route
@@ -66,9 +59,7 @@ function App() {
                 {/* Global Fallback Route */}
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
-              </div>
             </main>
-            <Footer />
           </div>
         </div>
       </Router>
