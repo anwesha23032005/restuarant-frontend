@@ -72,93 +72,91 @@ const UserRegister = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-10 glass-panel p-8 animate-fade-in-up">
-      <h2 className="text-2xl font-bold text-center bg-gradient-to-r from-amber-300 to-orange-500 bg-clip-text text-transparent mb-6">
-        Create an Account
-      </h2>
+    <div className="max-w-md mx-auto my-10 p-8 bg-white rounded-xl shadow-md border border-gray-100">
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Create an Account</h2>
 
       {error && (
-        <div className="bg-red-500/10 text-red-300 border border-red-500/20 p-3 rounded-lg mb-4 text-sm backdrop-blur-md">
+        <div className="bg-red-50 text-red-600 border border-red-200 p-3 rounded-md mb-4 text-sm">
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
           <input
             type="text"
             name="Name"
             value={formData.Name}
             onChange={handleChange}
             required
-            className="glass-input w-full px-4 py-2.5"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"
             placeholder="John Doe"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
           <input
             type="email"
             name="Email"
             value={formData.Email}
             onChange={handleChange}
             required
-            className="glass-input w-full px-4 py-2.5"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"
             placeholder="john@example.com"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
           <input
             type="password"
             name="Password"
             value={formData.Password}
             onChange={handleChange}
             required
-            className="glass-input w-full px-4 py-2.5"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"
             placeholder="••••••••"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Confirm Password</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
           <input
             type="password"
             name="ConfirmPassword"
             value={formData.ConfirmPassword}
             onChange={handleChange}
             required
-            className="glass-input w-full px-4 py-2.5"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"
             placeholder="••••••••"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Account Type</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
           <select
             name="Role"
             value={formData.Role}
             onChange={handleChange}
-            className="glass-input-select w-full px-4 py-2.5"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"
           >
-            <option value="Customer" className="bg-slate-800">Customer</option>
-            <option value="Admin" className="bg-slate-800">Admin</option>
+            <option value="Customer">Customer</option>
+            <option value="Admin">Admin</option>
           </select>
         </div>
 
         {formData.Role === 'Admin' && (
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">Admin Passcode</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Admin Passcode</label>
             <input
               type="password"
               name="AdminCode"
               value={formData.AdminCode}
               onChange={handleChange}
               required
-              className="glass-input w-full px-4 py-2.5"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"
               placeholder="Enter secret admin key"
             />
           </div>
@@ -167,15 +165,15 @@ const UserRegister = () => {
         <button
           type="submit"
           disabled={loading}
-          className="btn-primary w-full mt-2 py-3 disabled:opacity-50"
+          className="w-full mt-2 py-3 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-700 transition duration-150 disabled:opacity-50"
         >
           {loading ? 'Creating Account...' : 'Register'}
         </button>
       </form>
 
-      <p className="text-center text-sm text-slate-400 mt-6">
+      <p className="text-center text-sm text-gray-600 mt-6">
         Already have an account?{' '}
-        <Link to="/login" className="text-amber-400 font-semibold hover:text-amber-300 transition-colors">
+        <Link to="/login" className="text-amber-600 font-semibold hover:underline">
           Sign In
         </Link>
       </p>

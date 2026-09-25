@@ -50,9 +50,8 @@ const AdminDashboard = () => {
 
   if (loading || !user) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 gap-4">
-        <div className="w-12 h-12 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
-        <div className="text-amber-400 font-semibold text-sm">
+      <div className="flex justify-center items-center h-64">
+        <div className="text-amber-600 font-semibold text-lg">
           Loading Dashboard...
         </div>
       </div>
@@ -60,78 +59,78 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="animate-fade-in-up">
+    <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-100">
+        <h1 className="text-3xl font-extrabold text-gray-900">
           Admin Dashboard
         </h1>
-        <p className="text-slate-400 mt-1">
-          Welcome back, <span className="text-amber-300">{user?.Name}</span>! Here is a summary of your system.
+        <p className="text-gray-600 mt-1">
+          Welcome back, {user?.Name}! Here is a summary of your system.
         </p>
       </div>
 
       {/* Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="glass-card p-6 flex items-center justify-between hover:border-amber-500/20 transition-all duration-300">
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-slate-400">
+            <p className="text-sm font-medium text-gray-500">
               Total Menu Items
             </p>
-            <h3 className="text-3xl font-bold text-slate-100 mt-1">
+            <h3 className="text-3xl font-bold text-gray-900 mt-1">
               {stats.totalItems}
             </h3>
           </div>
-          <div className="w-12 h-12 bg-amber-500/15 rounded-full flex items-center justify-center text-2xl shadow-lg shadow-amber-500/10">
+          <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 font-bold text-xl">
             🍔
           </div>
         </div>
 
-        <div className="glass-card p-6 flex items-center justify-between hover:border-emerald-500/20 transition-all duration-300">
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-slate-400">Items Available</p>
-            <h3 className="text-3xl font-bold text-slate-100 mt-1">
+            <p className="text-sm font-medium text-gray-500">Items Available</p>
+            <h3 className="text-3xl font-bold text-gray-900 mt-1">
               {stats.availableItems}
             </h3>
           </div>
-          <div className="w-12 h-12 bg-emerald-500/15 rounded-full flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/10">
+          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold text-xl">
             ✅
           </div>
         </div>
 
-        <div className="glass-card p-6 flex items-center justify-between hover:border-sky-500/20 transition-all duration-300">
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-slate-400">
+            <p className="text-sm font-medium text-gray-500">
               Registered Users
             </p>
-            <h3 className="text-3xl font-bold text-slate-100 mt-1">
+            <h3 className="text-3xl font-bold text-gray-900 mt-1">
               {stats.totalUsers}
             </h3>
           </div>
-          <div className="w-12 h-12 bg-sky-500/15 rounded-full flex items-center justify-center text-2xl shadow-lg shadow-sky-500/10">
+          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl">
             👥
           </div>
         </div>
       </div>
 
       {/* Action Shortcuts */}
-      <div className="glass-card p-6">
-        <h2 className="text-lg font-bold text-slate-100 mb-4">Quick Actions</h2>
+      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 className="text-lg font-bold text-gray-800 mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-4">
           <Link
             to="/admin/menu-items/add"
-            className="btn-primary px-5 py-2.5 text-sm"
+            className="bg-amber-600 hover:bg-amber-700 text-white font-medium px-4 py-2 rounded-lg transition duration-150"
           >
             + Add New Menu Item
           </Link>
           <Link
             to="/admin/menu-items"
-            className="btn-secondary px-5 py-2.5 text-sm"
+            className="bg-gray-800 hover:bg-gray-900 text-white font-medium px-4 py-2 rounded-lg transition duration-150"
           >
             Manage Menu Items
           </Link>
           <Link
             to="/admin/users"
-            className="btn-secondary px-5 py-2.5 text-sm"
+            className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium px-4 py-2 rounded-lg transition duration-150"
           >
             View Registered Users
           </Link>

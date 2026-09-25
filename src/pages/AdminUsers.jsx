@@ -80,9 +80,8 @@ const AdminUsers = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 gap-4">
-        <div className="w-12 h-12 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
-        <div className="text-amber-400 font-semibold text-sm">
+      <div className="flex justify-center items-center h-64">
+        <div className="text-amber-600 font-semibold text-lg">
           Loading Users...
         </div>
       </div>
@@ -90,10 +89,10 @@ const AdminUsers = () => {
   }
 
   return (
-    <div className="animate-fade-in-up">
+    <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-100">Registered Users</h1>
-        <p className="text-sm text-slate-400">
+        <h1 className="text-2xl font-bold text-gray-900">Registered Users</h1>
+        <p className="text-sm text-gray-500">
           Overview of all system accounts and permissions.
         </p>
       </div>
@@ -105,83 +104,85 @@ const AdminUsers = () => {
           placeholder="Search by user name or email..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="glass-input w-full md:w-1/3 px-3 py-2 text-sm"
+          className="w-full md:w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white"
         />
       </div>
 
       {message && (
-        <div className="bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 p-3 rounded-lg mb-4 text-sm backdrop-blur-md">
+        <div className="bg-green-100 text-green-700 p-3 rounded-md mb-4 text-sm">
           {message}
         </div>
       )}
 
       {error && (
-        <div className="bg-amber-500/10 text-amber-300 border border-amber-500/20 p-3 rounded-lg mb-4 text-sm backdrop-blur-md">
+        <div className="bg-amber-50 text-amber-700 border border-amber-200 p-3 rounded-md mb-4 text-sm">
           {error}
         </div>
       )}
 
-      <div className="glass-card overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-white/10">
-            <thead className="bg-white/5">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                User
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Email
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Role
+              </th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {filteredUsers.length === 0 ? (
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  User
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  Email
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  Role
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  Actions
-                </th>
+                <td
+                  colSpan="4"
+                  className="px-6 py-4 text-center text-gray-500 text-sm"
+                >
+                  No registered users found.
+                </td>
               </tr>
-            </thead>
-            <tbody className="divide-y divide-white/5">
-              {filteredUsers.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan="4"
-                    className="px-6 py-8 text-center text-slate-500 text-sm"
-                  >
-                    No registered users found.
+            ) : (
+              filteredUsers.map((u) => (
+                <tr key={u._id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="font-medium text-gray-900">{u.Name}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                    {u.Email}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span
+                      className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        u.Role === "Admin"
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-blue-100 text-blue-800"
+                      }`}
+                    >
+                      {u.Role}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    {u._id !== user?._id && (
+                      <button
+                        onClick={() => handleDeleteUser(u._id)}
+                        className="text-red-600 hover:text-red-900 font-semibold"
+                      >
+                        Delete
+                      </button>
+                    )}
                   </td>
                 </tr>
-              ) : (
-                filteredUsers.map((u) => (
-                  <tr key={u._id} className="hover:bg-white/5 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="font-medium text-slate-100">{u.Name}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">
-                      {u.Email}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span
-                        className={u.Role === "Admin" ? "badge-amber" : "badge-blue"}
-                      >
-                        {u.Role}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      {u._id !== user?._id && (
-                        <button
-                          onClick={() => handleDeleteUser(u._id)}
-                          className="text-red-400 hover:text-red-300 font-semibold transition-colors"
-                        >
-                          Delete
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 const AdminMenuItems = () => {
   const { user } = useContext(AuthContext);
   const [menuItems, setMenuItems] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // 1. Added search state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [deleteSuccess, setDeleteSuccess] = useState("");
@@ -76,7 +76,7 @@ const AdminMenuItems = () => {
     }
   };
 
-  // Filter menu items based on name or category matching the search input
+  // 2. Filter menu items based on name or category matching the search input
   const filteredItems = menuItems.filter(
     (item) =>
       item.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -85,9 +85,8 @@ const AdminMenuItems = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 gap-4">
-        <div className="w-12 h-12 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
-        <div className="text-amber-400 font-semibold text-sm">
+      <div className="flex justify-center items-center h-64">
+        <div className="text-amber-600 font-semibold text-lg">
           Loading Menu Items...
         </div>
       </div>
@@ -95,125 +94,129 @@ const AdminMenuItems = () => {
   }
 
   return (
-    <div className="animate-fade-in-up">
+    <div>
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">
+          <h1 className="text-2xl font-bold text-gray-900">
             Manage Menu Items
           </h1>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-gray-500">
             View, update, or remove restaurant menu items.
           </p>
         </div>
         <Link
           to="/admin/menu-items/add"
-          className="btn-primary px-4 py-2 text-sm"
+          className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-md font-medium text-sm transition duration-150"
         >
           + Add New Item
         </Link>
       </div>
 
-      {/* Search Input Bar */}
+      {/* 3. Added Search Input Bar */}
       <div className="mb-4">
         <input
           type="text"
           placeholder="Search by item name or category..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="glass-input w-full md:w-1/3 px-3 py-2 text-sm"
+          className="w-full md:w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white"
         />
       </div>
 
       {deleteSuccess && (
-        <div className="bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 p-3 rounded-lg mb-4 text-sm backdrop-blur-md">
+        <div className="bg-green-100 text-green-700 p-3 rounded-md mb-4 text-sm">
           {deleteSuccess}
         </div>
       )}
 
       {error && (
-        <div className="bg-amber-500/10 text-amber-300 border border-amber-500/20 p-3 rounded-lg mb-4 text-sm backdrop-blur-md">
+        <div className="bg-amber-50 text-amber-700 border border-amber-200 p-3 rounded-md mb-4 text-sm">
           {error}
         </div>
       )}
 
-      <div className="glass-card overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-white/10">
-            <thead className="bg-white/5">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Item
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Category
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Price
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {/* 4. Changed menuItems.length to filteredItems.length */}
+            {filteredItems.length === 0 ? (
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  Item
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  Category
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  Price
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  Actions
-                </th>
+                <td
+                  colSpan="5"
+                  className="px-6 py-4 text-center text-gray-500 text-sm"
+                >
+                  No menu items found.
+                </td>
               </tr>
-            </thead>
-            <tbody className="divide-y divide-white/5">
-              {filteredItems.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan="5"
-                    className="px-6 py-8 text-center text-slate-500 text-sm"
-                  >
-                    No menu items found.
+            ) : (
+              /* 5. Mapped over filteredItems instead of menuItems */
+              filteredItems.map((item) => (
+                <tr key={item._id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap flex items-center gap-3">
+                    <img
+                      src={item.Image}
+                      alt={item.Name}
+                      className="w-10 h-10 rounded-md object-cover"
+                    />
+                    <span className="font-medium text-gray-900">
+                      {item.Name}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                    {item.Category}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                    ${item.Price.toFixed(2)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span
+                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        item.IsAvailable
+                          ? "bg-green-100 text-green-800"
+                          : "bg-red-100 text-red-800"
+                      }`}
+                    >
+                      {item.IsAvailable ? "Available" : "Unavailable"}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
+                    <Link
+                      to={`/admin/menu-items/edit/${item._id}`}
+                      className="text-amber-600 hover:text-amber-900 font-semibold"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(item._id)}
+                      className="text-red-600 hover:text-red-900 font-semibold"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
-              ) : (
-                filteredItems.map((item) => (
-                  <tr key={item._id} className="hover:bg-white/5 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap flex items-center gap-3">
-                      <img
-                        src={item.Image}
-                        alt={item.Name}
-                        className="w-10 h-10 rounded-lg object-cover border border-white/10"
-                      />
-                      <span className="font-medium text-slate-100">
-                        {item.Name}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">
-                      {item.Category}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-amber-400">
-                      ${item.Price.toFixed(2)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span
-                        className={item.IsAvailable ? "badge-green" : "badge-red"}
-                      >
-                        {item.IsAvailable ? "Available" : "Unavailable"}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
-                      <Link
-                        to={`/admin/menu-items/edit/${item._id}`}
-                        className="text-amber-400 hover:text-amber-300 font-semibold transition-colors"
-                      >
-                        Edit
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(item._id)}
-                        className="text-red-400 hover:text-red-300 font-semibold transition-colors"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

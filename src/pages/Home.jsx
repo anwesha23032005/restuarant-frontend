@@ -64,11 +64,8 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 gap-4">
-        <div className="w-12 h-12 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
-        <div className="text-amber-400 font-medium text-sm">
-          Loading delicious items...
-        </div>
+      <div className="text-center py-10 font-medium text-amber-600">
+        Loading delicious items...
       </div>
     );
   }
@@ -76,72 +73,62 @@ const Home = () => {
   return (
     <div className="space-y-8 pb-12">
       {/* Hero Banner */}
-      <div className="bg-slate-950 overflow-hidden rounded-3xl border border-slate-800 p-8 sm:p-12 text-center animate-fade-in-up relative shadow-2xl">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 filter brightness-50 pointer-events-none"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1615366105533-5b8f3255ea5d?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGJhY2tncm91bmQlMjBmb29kfGVufDB8fDB8fHww')" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/40 pointer-events-none" />
-        <div className="relative z-10">
-          <h1 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500 bg-clip-text text-transparent mb-3">
-            Welcome to TastyBites
-          </h1>
-          <p className="text-slate-300 text-lg font-light">
-            Order fresh, delicious meals directly from our kitchen.
-          </p>
+      <div className="bg-amber-100 rounded-2xl p-8 text-center border border-amber-200">
+        <h1 className="text-4xl font-extrabold text-amber-900 mb-2">
+          Welcome to TastyBites
+        </h1>
+        <p className="text-amber-700 text-lg">
+          Order fresh, delicious meals directly from our kitchen.
+        </p>
 
-          {/* Search Input Bar */}
-          <div className="mt-6 max-w-md mx-auto">
-            <input
-              type="text"
-              placeholder="Search for pizzas, burgers, pasta..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="glass-input w-full px-4 py-3 text-sm shadow-lg"
-            />
-          </div>
+        {/* Search Input Bar */}
+        <div className="mt-6 max-w-md mx-auto">
+          <input
+            type="text"
+            placeholder="Search for pizzas, burgers, pasta..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white shadow-sm"
+          />
         </div>
       </div>
 
       {/* Menu Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredItems.length === 0 ? (
-          <div className="col-span-full text-center py-12 text-slate-400 text-sm glass-card">
+          <div className="col-span-full text-center py-12 text-gray-500 text-sm">
             No menu items found matching "{searchTerm}".
           </div>
         ) : (
           filteredItems.map((item) => (
             <div
               key={item._id}
-              className="glass-card overflow-hidden hover:border-amber-500/30 transition-all duration-300 group hover:shadow-amber-500/10 hover:shadow-2xl"
+              className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition"
             >
-              <div className="relative overflow-hidden">
-                <img
-                  src={item.Image}
-                  alt={item.Name}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-              </div>
-              <div className="p-5 flex flex-col justify-between h-48">
+              <img
+                src={item.Image}
+                alt={item.Name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-5 flex flex-col justify-between h-52">
                 <div>
-                  <span className="badge-amber">
+                  <span className="text-xs font-semibold px-2 py-1 bg-amber-50 text-amber-700 rounded-md">
                     {item.Category}
                   </span>
-                  <h3 className="text-xl font-bold text-slate-100 mt-2">
+                  <h3 className="text-xl font-bold text-gray-800 mt-2">
                     {item.Name}
                   </h3>
-                  <p className="text-slate-400 text-sm mt-1 line-clamp-2">
+                  <p className="text-gray-600 text-sm mt-1 line-clamp-2">
                     {item.Description}
                   </p>
                 </div>
                 <div className="flex justify-between items-center mt-4">
-                  <span className="text-xl font-bold text-amber-400 text-glow-amber">
+                  <span className="text-xl font-bold text-amber-600">
                     ${item.Price.toFixed(2)}
                   </span>
                   <Link
                     to={`/menu/${item._id}`}
-                    className="btn-primary px-4 py-2 text-sm"
+                    className="bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-amber-700 transition"
                   >
                     View Details
                   </Link>
