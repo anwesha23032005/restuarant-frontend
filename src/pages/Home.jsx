@@ -74,18 +74,18 @@ const Home = () => {
     <div className="space-y-8 pb-12">
       {/* Hero Banner */}
       <div
-        className="relative rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat"
+        className="relative rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat min-h-[340px] flex items-center justify-center"
         style={{
           backgroundImage:
-            "url('https://t3.ftcdn.net/jpg/01/54/14/86/360_F_154148685_yvijeC6L2SFpvqFJ5H1lunPg40FzCAf1.jpg')",
+            "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop')",
         }}
       >
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
         <div className="relative p-8 text-center">
-          <h1 className="text-4xl font-extrabold text-white mb-2">
+          <h1 className="text-4xl font-extrabold text-white mb-2 drop-shadow-lg">
             Welcome to TastyBites
           </h1>
-          <p className="text-gray-100 text-lg">
+          <p className="text-white/90 text-lg drop-shadow">
             Order fresh, delicious meals directly from our kitchen.
           </p>
 
@@ -96,7 +96,7 @@ const Home = () => {
               placeholder="Search for pizzas, burgers, pasta..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white shadow-sm"
+              className="w-full px-4 py-3 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm bg-white/90 text-gray-800 shadow-lg placeholder:text-gray-500"
             />
           </div>
         </div>
