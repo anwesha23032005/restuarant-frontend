@@ -73,23 +73,32 @@ const Home = () => {
   return (
     <div className="space-y-8 pb-12">
       {/* Hero Banner */}
-      <div className="bg-amber-100 rounded-2xl p-8 text-center border border-amber-200">
-        <h1 className="text-4xl font-extrabold text-amber-900 mb-2">
-          Welcome to TastyBites
-        </h1>
-        <p className="text-amber-700 text-lg">
-          Order fresh, delicious meals directly from our kitchen.
-        </p>
+      <div
+        className="relative rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage:
+            "url('https://t3.ftcdn.net/jpg/01/54/14/86/360_F_154148685_yvijeC6L2SFpvqFJ5H1lunPg40FzCAf1.jpg')",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative p-8 text-center">
+          <h1 className="text-4xl font-extrabold text-white mb-2">
+            Welcome to TastyBites
+          </h1>
+          <p className="text-gray-100 text-lg">
+            Order fresh, delicious meals directly from our kitchen.
+          </p>
 
-        {/* Search Input Bar */}
-        <div className="mt-6 max-w-md mx-auto">
-          <input
-            type="text"
-            placeholder="Search for pizzas, burgers, pasta..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white shadow-sm"
-          />
+          {/* Search Input Bar */}
+          <div className="mt-6 max-w-md mx-auto">
+            <input
+              type="text"
+              placeholder="Search for pizzas, burgers, pasta..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white shadow-sm"
+            />
+          </div>
         </div>
       </div>
 
