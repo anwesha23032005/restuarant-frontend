@@ -112,7 +112,7 @@ const Home = () => {
           filteredItems.map((item) => (
             <div
               key={item._id}
-              className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition"
+              className="bg-white rounded-xl shadow-md border border-orange-100 overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition duration-200"
             >
               <img
                 src={item.Image}
