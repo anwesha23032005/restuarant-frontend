@@ -172,11 +172,13 @@ const AdminMenuItems = () => {
               filteredItems.map((item) => (
                 <tr key={item._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap flex items-center gap-3">
-                    <img
-                      src={item.Image}
-                      alt={item.Name}
-                      className="w-10 h-10 rounded-md object-cover"
-                    />
+                    <div className="group/img w-10 h-10 rounded-md overflow-hidden">
+                      <img
+                        src={item.Image}
+                        alt={item.Name}
+                        className="w-10 h-10 object-cover transition-transform duration-500 ease-in-out group-hover/img:scale-110"
+                      />
+                    </div>
                     <span className="font-medium text-gray-900">
                       {item.Name}
                     </span>

@@ -112,13 +112,15 @@ const Home = () => {
           filteredItems.map((item) => (
             <div
               key={item._id}
-              className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition"
+              className="group bg-white rounded-2xl shadow-md border border-orange-200 overflow-hidden hover:shadow-lg transition duration-300"
             >
-              <img
-                src={item.Image}
-                alt={item.Name}
-                className="w-full h-48 object-cover"
-              />
+              <div className="overflow-hidden">
+                <img
+                  src={item.Image}
+                  alt={item.Name}
+                  className="w-full h-48 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                />
+              </div>
               <div className="p-5 flex flex-col justify-between h-52">
                 <div>
                   <span className="text-xs font-semibold px-2 py-1 bg-amber-50 text-amber-700 rounded-md">

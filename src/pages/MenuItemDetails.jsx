@@ -86,12 +86,12 @@ const MenuItemDetails = () => {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden grid grid-cols-1 md:grid-cols-2">
-        <div className="h-72 md:h-full w-full">
+      <div className="group bg-white rounded-2xl shadow-md border border-orange-200 overflow-hidden grid grid-cols-1 md:grid-cols-2">
+        <div className="h-72 md:h-full w-full overflow-hidden">
           <img
             src={item.Image}
             alt={item.Name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
           />
         </div>
 
